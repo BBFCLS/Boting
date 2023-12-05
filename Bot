@@ -1,0 +1,29 @@
+import telebot 
+from telebot import types 
+
+bot = telebot.TeleBot('6556132728:AAGwt32gVf0g8eqAFeJFEffGg2R4KA8Z3X4') 
+
+@bot.message_handler(commands=['start']) 
+def start(message): 
+    markup = types.InlineKeyboardMarkup() 
+    btn1 = types.InlineKeyboardButton(text="Та самая проблема", url="https://yandex.ru/search/?text=%D0%98%D0%BC%D1%8F+%22pip%22+%D0%BD%D0%B5+%D1%80%D0%B0%D1%81%D0%BF%D0%BE%D0%B7%D0%BD%D0%B0%D0%BD%D0%BE+%D0%BA%D0%B0%D0%BA+%D0%B8%D0%BC%D1%8F+%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D0%BB%D0%B5%D1%82%D0%B0%2C&clid=2871230&lr=121239") 
+    markup.add(btn1) 
+    bot.send_message(message.from_user.id, 'Ссылка:', reply_markup=markup) 
+
+@bot.message_handler(content_types=['text']) 
+def get_text_messages(message): 
+    if message.text == 'hello': 
+        markup = types.ReplyKeyboardMarkup(resize_keyboard=True) 
+        btn1 = types.KeyboardButton('1') 
+        btn2 =  types.KeyboardButton('2') 
+        btn3 = types.KeyboardButton('3') 
+        markup.add(btn1,btn2,btn3) 
+
+    elif message.text =='1': 
+        bot.send_message(message.from_user.id, 'нажата кнопка 1') 
+    elif message.text =='2': 
+        bot.send_message(message.from_user.id, 'нажата кнопка 2') 
+    elif message.text =='3': 
+        bot.send_message(message.from_user.id, 'нажата кнопка 3') 
+
+bot.polling(non_stop=True, interval=0)
